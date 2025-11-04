@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tienda | Master Fibra</title><link rel="stylesheet" href="style.css"></head><body>
+
+<div class="navbar"><div class="container nav-inner">
+  <a href="index.html" class="brand"><img src="images/logo.webp" alt="Master Fibra"><strong>Master Fibra</strong></a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="shop.html">Tienda</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="carrito.html" class="cart">🛒 <span id="cart-count" class="badge count">0</span></a>
+  </div>
+</div></div>
+
+<div class="container section"><div class="breadcrumb"><a href="index.html">Inicio</a> / Tienda</div><h2>Catálogo</h2>
+<div class="cards">
+  <div class="card"><img src="images/buses.webp" alt="Carrocerías"><div class="p"><div class="title">Carrocerías de buses</div><p>Parachoques, frentes, paneles y más.</p><div class="price">$100</div><div style="margin-top:10px"><a class="btn btn-primary" href="producto-carrocerias.html">Ver más</a><button class="btn btn-outline" onclick="addToCart({id:'carrocerias',name:'Carrocerías de buses',price:100})">Agregar</button></div></div></div>
+  <div class="card"><img src="images/macetas.webp" alt="Macetas decorativas"><div class="p"><div class="title">Macetas decorativas</div><p>Modelos esféricos y geométricos. Personalización por color.</p><div class="price">$40</div><div style="margin-top:10px"><a class="btn btn-primary" href="producto-macetas.html">Ver más</a><button class="btn btn-outline" onclick="addToCart({id:'macetas',name:'Macetas decorativas',price:40})">Agregar</button></div></div></div>
+  <div class="card"><img src="images/piezas.webp" alt="Partes en fibra"><div class="p"><div class="title">Partes en fibra</div><p>Fabricación a medida para todo tipo de proyecto.</p><div class="price">$60</div><div style="margin-top:10px"><a class="btn btn-primary" href="producto-piezas.html">Ver más</a><button class="btn btn-outline" onclick="addToCart({id:'piezas',name:'Partes en fibra',price:60})">Agregar</button></div></div></div>
+</div></div>
+
+
+
+<div class="footer-top">
+  <div class="container">
+    <div class="icons">
+      <a class="icon-btn fb" href="https://www.facebook.com/masterfibraec" target="_blank" title="Facebook" aria-label="Facebook">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91V129.09c0-25.35 12.42-50.06 52.24-50.06H293V6.26S259.91 0 225.36 0c-73.22 0-121.09 44.38-121.09 124.72V195.3H22.89V288h81.38v224h100.2V288z"/></svg>
+      </a>
+      <a class="icon-btn ig" href="https://www.instagram.com/master_fibra" target="_blank" title="Instagram" aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 128c-70.7 0-128 57.3-128 128s57.3 128 128 128 128-57.3 128-128S294.7 128 224 128zm0 208c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80zM394.7 124.3c0 16.4-13.3 29.7-29.7 29.7s-29.7-13.3-29.7-29.7 13.3-29.7 29.7-29.7 29.7 13.3 29.7 29.7zM448 80v352c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V80C0 35.8 35.8 0 80 0h288c44.2 0 80 35.8 80 80z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="footer"><div class="container">© 2025 Master Fibra de Vidrio – Sitio desarrollado por Ing. Elvis Gómez</div></div>
+<script src="app.js"></script>
+
+</body></html>

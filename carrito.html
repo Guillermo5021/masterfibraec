@@ -1,0 +1,65 @@
+<!DOCTYPE html><html lang="es"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carrito | Master Fibra</title><link rel="stylesheet" href="style.css"></head><body>
+
+<div class="navbar"><div class="container nav-inner">
+  <a href="index.html" class="brand"><img src="images/logo.webp" alt="Master Fibra"><strong>Master Fibra</strong></a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="shop.html">Tienda</a>
+    <a href="contacto.html">Contacto</a>
+    <a href="carrito.html" class="cart">🛒 <span id="cart-count" class="badge count">0</span></a>
+  </div>
+</div></div>
+
+<div class="container section"><div class="breadcrumb"><a href="index.html">Inicio</a> / Carrito</div>
+<h2>Tu carrito</h2><div id="cart-view"></div>
+<h3 style="color:var(--blue);margin-top:30px">Datos para factura / entrega</h3>
+<div class="form-row"><div><div class="label">Nombre completo</div><input id="u_nombre" class="input" placeholder="Nombre y apellido"></div>
+<div><div class="label">ID/RUC</div><input id="u_id" class="input" placeholder="Cédula o RUC"></div></div>
+<div class="form-row" style="margin-top:10px"><div><div class="label">Email</div><input id="u_email" class="input" placeholder="correo@ejemplo.com"></div>
+<div><div class="label">Teléfono</div><input id="u_tel" class="input" placeholder="+593 ..."></div></div>
+<div style="margin-top:10px"><div class="label">Dirección</div><input id="u_dir" class="input" placeholder="Calle, número, ciudad"></div>
+<div style="margin-top:16px"><button class="btn btn-outline" onclick="saveUserForm()">Guardar datos</button></div>
+<div style="margin-top:26px"><button class="btn btn-success" id="btn-whatsapp">Enviar pedido por WhatsApp</button>
+<a class="btn btn-primary" id="btn-paypal" target="_blank">Pagar con PayPal</a></div>
+</div>
+<script>
+function renderCart(){
+  const c=loadCart(); if(!c.length){document.getElementById('cart-view').innerHTML='<div class="empty">Tu carrito está vacío.</div>'; return;}
+  let html='<table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Total</th><th></th></tr></thead><tbody>';
+  c.forEach(i=>{ html+=`<tr><td>${i.name}</td><td>$${i.price.toFixed(2)}</td><td><input type="number" min="1" value="${i.qty}" style="width:80px" onchange="setQty('${i.id}',parseInt(this.value))"></td><td>$${(i.price*i.qty).toFixed(2)}</td><td><button class="btn btn-outline" onclick="removeFromCart('${i.id}')">Quitar</button></td></tr>` });
+  const total=cartTotal(c); html+='</tbody></table><div style="text-align:right;margin-top:12px;font-weight:700">Total: $'+total.toFixed(2)+'</div>';
+  document.getElementById('cart-view').innerHTML=html;
+  document.getElementById('btn-whatsapp').onclick=()=>window.open(whatsappLink(total),'_blank');
+  document.getElementById('btn-paypal').href=paypalLink(total);
+}
+function saveUserForm(){
+  const u={nombre:document.getElementById('u_nombre').value.trim(),identificacion:document.getElementById('u_id').value.trim(),email:document.getElementById('u_email').value.trim(),telefono:document.getElementById('u_tel').value.trim(),direccion:document.getElementById('u_dir').value.trim()};
+  saveUser(u); alert('Datos guardados.');
+}
+document.addEventListener('DOMContentLoaded',()=>{const u=loadUser(); if(u.nombre)document.getElementById('u_nombre').value=u.nombre||'';
+if(u.identificacion)document.getElementById('u_id').value=u.identificacion||''; if(u.email)document.getElementById('u_email').value=u.email||'';
+if(u.telefono)document.getElementById('u_tel').value=u.telefono||''; if(u.direccion)document.getElementById('u_dir').value=u.direccion||''; renderCart();});
+</script>
+
+
+
+<div class="footer-top">
+  <div class="container">
+    <div class="icons">
+      <a class="icon-btn fb" href="https://www.facebook.com/masterfibraec" target="_blank" title="Facebook" aria-label="Facebook">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M279.14 288l14.22-92.66h-88.91V129.09c0-25.35 12.42-50.06 52.24-50.06H293V6.26S259.91 0 225.36 0c-73.22 0-121.09 44.38-121.09 124.72V195.3H22.89V288h81.38v224h100.2V288z"/></svg>
+      </a>
+      <a class="icon-btn ig" href="https://www.instagram.com/master_fibra" target="_blank" title="Instagram" aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 128c-70.7 0-128 57.3-128 128s57.3 128 128 128 128-57.3 128-128S294.7 128 224 128zm0 208c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80zM394.7 124.3c0 16.4-13.3 29.7-29.7 29.7s-29.7-13.3-29.7-29.7 13.3-29.7 29.7-29.7 29.7 13.3 29.7 29.7zM448 80v352c0 44.2-35.8 80-80 80H80c-44.2 0-80-35.8-80-80V80C0 35.8 35.8 0 80 0h288c44.2 0 80 35.8 80 80z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+</div>
+<div class="footer"><div class="container">© 2025 Master Fibra de Vidrio – Sitio desarrollado por Ing. Elvis Gómez</div></div>
+<script src="app.js"></script>
+
+</body></html>

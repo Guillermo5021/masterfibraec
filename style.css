@@ -1,0 +1,145 @@
+:root{--blue:#004E7C;--light:#35A8E0;--bg:#f8f9fa}
+*{box-sizing:border-box}body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:#222;margin:0}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.navbar{position:sticky;top:0;background:#fff;border-bottom:1px solid #eaeaea;z-index:1000}
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:10px}.brand img{height:48px}
+.nav-links{display:flex;align-items:center;gap:18px}
+.btn{display:inline-block;padding:10px 16px;border-radius:10px;border:1px solid transparent;font-weight:600;cursor:pointer}
+.btn-primary{background:var(--blue);color:#fff}.btn-outline{background:#fff;border-color:var(--blue);color:var(--blue)}
+.btn-success{background:#1f9d55;color:#fff}.badge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--light);color:#fff;font-size:12px;margin-left:6px}
+.hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:32px;align-items:center;padding:56px 0}
+.hero h1{color:var(--blue);font-size:42px;margin:0 0 10px}.hero p{font-size:18px;color:#555;margin:0 0 18px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{background:#fff;border:1px solid #eee;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.06);overflow:hidden}
+.card img{width:100%;height:190px;object-fit:cover}.card .p{padding:16px}.card .title{font-weight:700;color:var(--blue);margin:6px 0 8px}.card .price{font-weight:700}
+.section{padding:56px 0}.section h2{color:var(--blue);margin:0 0 20px}
+.footer{background:var(--blue);color:#fff;padding:22px 0;margin-top:40px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cart{position:relative;cursor:pointer}.cart .count{position:absolute;right:-10px;top:-8px}
+.product-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}.product-hero img{width:100%;border-radius:16px;border:1px solid #eee}
+.input{width:100%;padding:12px 14px;border:1px solid #ddd;border-radius:10px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.label{font-weight:600;margin-bottom:6px;color:#333}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}th,td{padding:12px;border-bottom:1px solid #eee;text-align:left}th{background:#f3f6f9;color:#333}
+.empty{padding:20px;background:#fff;border:1px dashed #ddd;border-radius:12px}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.gallery img{width:100%;height:180px;object-fit:cover;border-radius:12px;cursor:pointer}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center}
+.lightbox img{max-width:92%;max-height:92%;border-radius:14px}
+.breadcrumb{font-size:14px;color:#666;margin-bottom:10px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.product-hero{grid-template-columns:1fr}.nav-links{display:none}}
+
+
+/* ===== Footer global social icons (FB + IG only) ===== */
+.footer-top{padding:28px 0;background:#fff}
+.footer-top .icons{display:flex;gap:14px;justify-content:center;align-items:center}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;
+  background:#eef1f4;border:1px solid #e2e6ea;transition:transform .15s ease,background .15s ease}
+.icon-btn svg{width:18px;height:18px;fill:#6b7280;transition:fill .15s ease}
+.icon-btn:hover{transform:translateY(-2px)}
+/* Facebook hover */
+.icon-btn.fb:hover{background:#1877F2;border-color:#1877F2}
+.icon-btn.fb:hover svg{fill:#fff}
+/* Instagram hover with gradient background */
+.icon-btn.ig{position:relative;overflow:hidden}
+.icon-btn.ig::before{content:"";position:absolute;inset:0;border-radius:50%;
+  background: radial-gradient(30% 40% at 30% 20%, #ffd776 0%, #f79b4a 25%, transparent 26%),
+              radial-gradient(45% 60% at 60% 20%, #f53844 0%, #e1306c 40%, transparent 41%),
+              radial-gradient(60% 80% at 80% 80%, #4f5bd5 0%, #7232bd 50%, transparent 51%);
+  opacity:0;transition:opacity .2s ease}
+.icon-btn.ig:hover::before{opacity:1}
+.icon-btn.ig svg{position:relative;z-index:1}
+.icon-btn.ig:hover svg{fill:#fff}
+/* Blue bar full width */
+.footer{width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;position:relative}
+
+.footer-top{padding:28px 0;background:#fff}
+.footer-top .icons{display:flex;gap:14px;justify-content:center;align-items:center}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;
+  background:#f1f4f7;border:1px solid #e3e6ea;transition:transform .15s ease,background .15s ease}
+.icon-btn:hover{transform:translateY(-2px);background:#e9eef3}
+.icon-btn svg{width:18px;height:18px;fill:#3b5998}
+.icon-btn.ig svg{fill:#d6249f}
+/* Make blue bar full width everywhere */
+.footer{width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;position:relative}
+
+/* ===== Footer global social icons (clean, hover color) ===== */
+.footer-top{padding:28px 0;background:#fff}
+.footer-top .icons{display:flex;gap:14px;justify-content:center;align-items:center}
+.icon-btn{
+  --size:44px;
+  width:var(--size);height:var(--size);
+  display:inline-flex;align-items:center;justify-content:center;
+  border-radius:50%; border:1px solid #e5e7eb;
+  background:#f3f4f6; color:#6b7280; /* gray-500 */
+  transition:transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+  box-shadow:0 1px 2px rgba(16,24,40,.06);
+}
+.icon-btn svg{width:18px;height:18px;fill:currentColor}
+.icon-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(16,24,40,.12)}
+/* Facebook: blue on hover */
+.icon-btn.fb:hover{background:#1877f2;color:#fff;border-color:#1877f2}
+/* Instagram: gradient on hover */
+.icon-btn.ig{position:relative;overflow:hidden}
+.icon-btn.ig::before{
+  content:""; position:absolute; inset:0; border-radius:50%;
+  background:radial-gradient(circle at 30% 110%, #fdf497, transparent 40%),
+             radial-gradient(circle at 0 140%, #fdf497, transparent 40%),
+             radial-gradient(circle at 35% 90%, #fd5949, transparent 30%),
+             radial-gradient(circle at 80% 0, #d6249f, transparent 45%),
+             radial-gradient(circle at 80% 0, #285AEB 10%, transparent 60%);
+  opacity:0; transition:opacity .15s ease;
+}
+.icon-btn.ig:hover{color:#fff;border-color:transparent;background:transparent}
+.icon-btn.ig:hover::before{opacity:1}
+.icon-btn.ig svg{position:relative;z-index:1}
+/* Full-width blue footer bar fix */
+.footer{width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;position:relative}
+
+/* ====== Pretty social icons (footer) ====== */
+.footer-top{padding:28px 0;background:#fff}
+.footer-top .icons{display:flex;gap:16px;justify-content:center;align-items:center}
+.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:50%;
+  background:#eef2f5;border:1px solid #e5e7eb;
+  transition:transform .15s ease, background .2s ease, filter .2s ease;
+}
+.icon-btn svg{width:18px;height:18px;fill:#6b7280;transition:fill .2s ease}
+.icon-btn:hover{transform:translateY(-2px)}
+.icon-btn.fb:hover{background:#1877F2}
+.icon-btn.fb:hover svg{fill:#fff}
+.icon-btn.ig{position:relative;overflow:hidden}
+.icon-btn.ig::before{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  opacity:0;transition:opacity .25s ease;
+}
+.icon-btn.ig:hover::before{opacity:1}
+.icon-btn.ig svg{position:relative;z-index:1}
+.icon-btn.ig:hover svg{fill:#fff}
+/* Keep blue bar full width */
+.footer{width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;position:relative}
+
+/* ===== Footer global social icons (minimal, elegant) ===== */
+.footer-top{padding:28px 0;background:#fff}
+.footer-top .icons{display:flex;gap:16px;justify-content:center;align-items:center}
+.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:50%;
+  background:#f1f5f9; /* slate-100 */
+  border:1px solid #e5e7eb; /* gray-200 */
+  transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.icon-btn svg{width:18px;height:18px;fill:#6b7280;} /* gray-500 */
+.icon-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
+.icon-btn.fb:hover{background:#1877F2;}
+.icon-btn.fb:hover svg{fill:#ffffff;}
+/* Instagram: grey default -> gradient on hover */
+.icon-btn.ig{position:relative;overflow:hidden}
+.icon-btn.ig:hover{background:radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);}
+.icon-btn.ig:hover svg{fill:#ffffff}
+
+/* Make blue bar full width everywhere */
+.footer{width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;position:relative}
