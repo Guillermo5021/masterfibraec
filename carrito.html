@@ -14,35 +14,96 @@
 
 <div class="container section"><div class="breadcrumb"><a href="./index.html">Inicio</a> / Carrito</div>
 <h2>Tu carrito</h2><div id="cart-view"></div>
-<h3 style="color:var(--blue);margin-top:30px">Datos para factura / entrega</h3>
-<div class="form-row"><div><div class="label">Nombre completo</div><input id="u_nombre" class="input" placeholder="Nombre y apellido"></div>
-<div><div class="label">ID/RUC</div><input id="u_id" class="input" placeholder="Cédula o RUC"></div></div>
-<div class="form-row" style="margin-top:10px"><div><div class="label">Email</div><input id="u_email" class="input" placeholder="correo@ejemplo.com"></div>
-<div><div class="label">Teléfono</div><input id="u_tel" class="input" placeholder="+593 ..."></div></div>
-<div style="margin-top:10px"><div class="label">Dirección</div><input id="u_dir" class="input" placeholder="Calle, número, ciudad"></div>
-<div style="margin-top:16px"><button class="btn btn-outline" onclick="saveUserForm()">Guardar datos</button></div>
-<div style="margin-top:26px"><button class="btn btn-success" id="btn-whatsapp">Enviar pedido por WhatsApp</button>
-<a class="btn btn-primary" id="btn-paypal" target="_blank">Pagar con PayPal</a></div>
+
+<div style="margin-top:40px; text-align:center;" id="cta-buttons-section">
+    <h3 style="color:var(--blue)">Finaliza tu pedido y regístralo</h3>
+    <p style="margin-bottom:15px">Haz clic en el botón para ser redirigido a nuestro Formulario de Pedidos, donde los productos y el total ya estarán rellenados automáticamente.</p>
+
+    <a class="btn btn-primary" id="btn-finalizar-registro" target="_blank" style="font-size: 1.1em; padding: 14px 24px;">📝 IR A REGISTRAR PEDIDO</a>
+    
+    <div style="margin-top:20px;">
+        <a class="btn btn-outline" id="btn-whatsapp-contacto" target="_blank">💬 Contactar por WhatsApp (sin envío de pedido)</a>
+    </div>
+</div>
 </div>
 <script>
+// El resto de las funciones (loadCart, saveCart, setQty, etc.) están en app.js y funcionan correctamente.
+
+function navigateToShop() {
+    window.location.href = './shop.html';
+}
+
 function renderCart(){
-  const c=loadCart(); if(!c.length){document.getElementById('cart-view').innerHTML='<div class="empty">Tu carrito está vacío.</div>'; return;}
+  const c=loadCart(); 
+  const cartView = document.getElementById('cart-view');
+  const ctaSection = document.getElementById('cta-buttons-section');
+  
+  if(!c.length){
+    // Carrito vacío: Ocultar la sección de botones y mostrar mensaje vacío
+    cartView.innerHTML='<div class="empty">Tu carrito está vacío.</div>'; 
+    if(ctaSection) ctaSection.style.display = 'none';
+    return;
+  }
+  
+  // Carrito con items: Mostrar carrito y botones
+  if(ctaSection) ctaSection.style.display = 'block';
+
   let html='<table><thead><tr><th>Producto</th><th>Precio</th><th>Cantidad</th><th>Total</th><th></th></tr></thead><tbody>';
   c.forEach(i=>{ html+=`<tr><td>${i.name}</td><td>$${i.price.toFixed(2)}</td><td><input type="number" min="1" value="${i.qty}" style="width:80px" onchange="setQty('${i.id}',parseInt(this.value))"></td><td>$${(i.price*i.qty).toFixed(2)}</td><td><button class="btn btn-outline" onclick="removeFromCart('${i.id}')">Quitar</button></td></tr>` });
-  const total=cartTotal(c); html+='</tbody></table><div style="text-align:right;margin-top:12px;font-weight:700">Total: $'+total.toFixed(2)+'</div>';
-  document.getElementById('cart-view').innerHTML=html;
-  document.getElementById('btn-whatsapp').onclick=()=>window.open(whatsappLink(total),'_blank');
-  document.getElementById('btn-paypal').href=paypalLink(total);
-}
-function saveUserForm(){
-  const u={nombre:document.getElementById('u_nombre').value.trim(),identificacion:document.getElementById('u_id').value.trim(),email:document.getElementById('u_email').value.trim(),telefono:document.getElementById('u_tel').value.trim(),direccion:document.getElementById('u_dir').value.trim()};
-  saveUser(u); alert('Datos guardados.');
-}
-document.addEventListener('DOMContentLoaded',()=>{const u=loadUser(); if(u.nombre)document.getElementById('u_nombre').value=u.nombre||'';
-if(u.identificacion)document.getElementById('u_id').value=u.identificacion||''; if(u.email)document.getElementById('u_email').value=u.email||'';
-if(u.telefono)document.getElementById('u_tel').value=u.telefono||''; if(u.direccion)document.getElementById('u_dir').value=u.direccion||''; renderCart();});
-</script>
+  
+  const total=cartTotal(c); 
+  html+='</tbody></table><div style="text-align:right;margin-top:12px;font-weight:700">Total: $'+total.toFixed(2)+'</div>';
+  cartView.innerHTML=html;
 
+  // Asignar los enlaces a los botones
+  const btnFinalizar = document.getElementById('btn-finalizar-registro');
+  const btnWhatsApp = document.getElementById('btn-whatsapp-contacto');
+  
+  if(btnFinalizar) btnFinalizar.href = googleFormsLink(total);
+  if(btnWhatsApp) btnWhatsApp.href = 'https://wa.me/593995783624?text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20un%20pedido.';
+}
+
+function clearCartAndShowSuccess() {
+    const c = loadCart();
+    
+    // 1. VACIAR EL CARRITO AUTOMÁTICAMENTE
+    if (c.length > 0) {
+        saveCart([]); // Vacía el carrito en localStorage y actualiza el contador
+    }
+
+    // 2. MOSTRAR MENSAJE DE ÉXITO
+    document.querySelector('.section h2').textContent = 'Pedido Enviado con Éxito';
+    document.getElementById('cart-view').innerHTML = `
+        <div class="empty" style="border: 1px solid #1f9d55; background: #e6ffed; color: #1f9d55;">
+            <h3>🎉 ¡Gracias por tu pedido!</h3>
+            <p>Hemos recibido tu pedido correctamente. Pronto nos pondremos en contacto contigo para confirmar la disponibilidad y el envío.</p>
+            <div style="margin-top: 15px;">
+                <button class="btn btn-primary" onclick="navigateToShop()">Ir a la Tienda</button>
+            </div>
+        </div>
+    `;
+    
+    // 3. Ocultar los botones de finalizar y contacto para evitar confusión
+    const ctaSection = document.getElementById('cta-buttons-section');
+    if(ctaSection) ctaSection.style.display = 'none';
+
+    // 4. Limpiar la URL para evitar que el mensaje se repita al recargar
+    history.replaceState(null, '', window.location.pathname);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Obtener parámetros de la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // 2. Comprobar si venimos de un envío exitoso del formulario
+    if (urlParams.get('order') === 'sent') {
+        clearCartAndShowSuccess();
+    } else {
+        // Si no hay parámetro de éxito, renderizar el carrito normal
+        renderCart();
+    }
+});
+</script>
 
 
 <div class="footer-top">
