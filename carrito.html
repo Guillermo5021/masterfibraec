@@ -16,13 +16,18 @@
 <h2>Tu carrito</h2><div id="cart-view"></div>
 
 <div style="margin-top:40px; text-align:center;" id="cta-buttons-section">
-    <h3 style="color:var(--blue)">Finaliza tu pedido y regístralo</h3>
-    <p style="margin-bottom:15px">Haz clic en el botón para ser redirigido a nuestro Formulario de Pedidos, donde los productos y el total ya estarán rellenados automáticamente.</p>
-
-    <a class="btn btn-primary" id="btn-finalizar-registro" target="_blank" style="font-size: 1.1em; padding: 14px 24px;">📝 IR A REGISTRAR PEDIDO</a>
+    <h3 style="color:var(--blue); margin-bottom: 25px;">Finaliza tu pedido</h3>
     
-    <div style="margin-top:20px;">
-        <a class="btn btn-outline" id="btn-whatsapp-contacto" target="_blank">💬 Contactar por WhatsApp (sin envío de pedido)</a>
+    <div style="margin-bottom:20px; border:1px solid #ddd; padding:20px; border-radius:12px;">
+        <p style="margin-bottom:15px; font-weight:600">Opción 1: Registrar pedido (Recomendado)</p>
+        <p style="font-size:14px; margin-bottom:15px">Haz clic para ser redirigido a nuestro Formulario de Pedidos (Google Forms), donde los productos y el total ya estarán rellenados automáticamente.</p>
+        <a class="btn btn-primary" id="btn-finalizar-registro" target="_blank" style="font-size: 1.1em; padding: 14px 24px;">📝 IR A REGISTRAR PEDIDO</a>
+    </div>
+
+    <div style="border:1px solid #ddd; padding:20px; border-radius:12px;">
+        <p style="margin-bottom:15px; font-weight:600">Opción 2: Pedido directo por WhatsApp</p>
+        <p style="font-size:14px; margin-bottom:15px">Te enviaremos el detalle de tu carrito por WhatsApp para confirmar la compra directamente. El carrito se vaciará al enviar.</p>
+        <button class="btn btn-success" id="btn-whatsapp-contacto" style="font-size: 1.1em; padding: 14px 24px;">💬 ENVIAR PEDIDO POR WHATSAPP</button>
     </div>
 </div>
 </div>
@@ -60,7 +65,18 @@ function renderCart(){
   const btnWhatsApp = document.getElementById('btn-whatsapp-contacto');
   
   if(btnFinalizar) btnFinalizar.href = googleFormsLink(total);
-  if(btnWhatsApp) btnWhatsApp.href = 'https://wa.me/593995783624?text=Hola%2C%20quisiera%20informaci%C3%B3n%20sobre%20un%20pedido.';
+  
+  // Lógica del botón de WhatsApp: Envía el pedido y vacía el carrito
+  if(btnWhatsApp) {
+      btnWhatsApp.onclick = () => {
+          // 1. Abre el enlace de WhatsApp en una nueva pestaña
+          window.open(whatsappLink(total), '_blank');
+          
+          // 2. Borra el carrito y muestra mensaje de éxito
+          // Se usa un pequeño retraso para asegurar que la nueva ventana se abra
+          setTimeout(clearCartAndShowSuccess, 500); 
+      };
+  }
 }
 
 function clearCartAndShowSuccess() {

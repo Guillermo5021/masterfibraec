@@ -1,8 +1,19 @@
 :root{--blue:#004E7C;--light:#35A8E0;--bg:#f8f9fa}
-*{box-sizing:border-box}body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:#222;margin:0}
+*{box-sizing:border-box}
+/* CORRECCIÓN: Se usa Flexbox para fijar el footer abajo */
+body{
+  font-family:'Segoe UI',system-ui,Arial,sans-serif;
+  background:var(--bg);
+  color:#222;
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
 a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .navbar{position:sticky;top:0;background:#fff;border-bottom:1px solid #eaeaea;z-index:1000}
-.container{max-width:1200px;margin:0 auto;padding:0 16px}
+/* CORRECCIÓN: Se añade width: 100% para asegurar que los contenedores no se colapsen en Flexbox (Fix para el layout de 3 columnas) */
+.container{max-width:1200px;margin:0 auto;padding:0 16px;width:100%}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
 .brand{display:flex;align-items:center;gap:10px}.brand img{height:48px}
 .nav-links{display:flex;align-items:center;gap:18px}
@@ -14,8 +25,10 @@ a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
 .card{background:#fff;border:1px solid #eee;border-radius:16px;box-shadow:0 6px 20px rgba(0,0,0,.06);overflow:hidden}
 .card img{width:100%;height:190px;object-fit:cover}.card .p{padding:16px}.card .title{font-weight:700;color:var(--blue);margin:6px 0 8px}.card .price{font-weight:700}
-.section{padding:56px 0}.section h2{color:var(--blue);margin:0 0 20px}
-.footer{background:var(--blue);color:#fff;padding:22px 0;margin-top:40px}
+/* CORRECCIÓN: Se añade flex-grow: 1 para que esta sección empuje el footer */
+.section{padding:56px 0;flex-grow:1}.section h2{color:var(--blue);margin:0 0 20px}
+/* CORRECCIÓN: Se elimina el margin-top para que el footer se pegue a footer-top */
+.footer{background:var(--blue);color:#fff;padding:22px 0;margin-top:0}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .cart{position:relative;cursor:pointer}.cart .count{position:absolute;right:-10px;top:-8px}
 .product-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px}.product-hero img{width:100%;border-radius:16px;border:1px solid #eee}
@@ -31,7 +44,7 @@ table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;ove
 @media(max-width:900px){.hero{grid-template-columns:1fr}.product-hero{grid-template-columns:1fr}.nav-links{display:none}}
 
 
-/* ===== Footer global social icons (FB + IG only) ===== */
+/* ===== Footer global social icons (FB + IG only) - Se mantiene el original por seguridad ===== */
 .footer-top{padding:28px 0;background:#fff}
 .footer-top .icons{display:flex;gap:14px;justify-content:center;align-items:center}
 .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;
