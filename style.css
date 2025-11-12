@@ -12,12 +12,13 @@ body{
 }
 a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
 .navbar{position:sticky;top:0;background:#fff;border-bottom:1px solid #eaeaea;z-index:1000}
-/* CORRECCIÓN: Se añade width: 100% para asegurar que los contenedores no se colapsen en Flexbox (Fix para el layout de 3 columnas) */
+/* CORRECCIÓN: Se añade width: 100% para asegurar que el contenido ocupe el ancho correcto dentro de Flexbox */
 .container{max-width:1200px;margin:0 auto;padding:0 16px;width:100%}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
 .brand{display:flex;align-items:center;gap:10px}.brand img{height:48px}
 .nav-links{display:flex;align-items:center;gap:18px}
-.btn{display:inline-block;padding:10px 16px;border-radius:10px;border:1px solid transparent;font-weight:600;cursor:pointer}
+/* RESTAURACIÓN Y UNIFICACIÓN: Se deja el padding general para los botones principales */
+.btn{display:inline-block;padding:12px 18px;border-radius:10px;border:1px solid transparent;font-weight:600;cursor:pointer}
 .btn-primary{background:var(--blue);color:#fff}.btn-outline{background:#fff;border-color:var(--blue);color:var(--blue)}
 .btn-success{background:#1f9d55;color:#fff}.badge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:var(--light);color:#fff;font-size:12px;margin-left:6px}
 .hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:32px;align-items:center;padding:56px 0}
@@ -156,3 +157,30 @@ table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;ove
 
 /* Make blue bar full width everywhere */
 .footer{width:100vw;left:50%;right:50%;margin-left:-50vw;margin-right:-50vw;position:relative}
+
+/* --- AJUSTE DE BOTONES PARA IGUALAR TAMAÑO EN TARJETAS (Destacados/Tienda) --- */
+.card .btn {
+    height: 42px;         
+    font-size: 14px;      
+    padding: 10px 16px;   
+}
+/* --- CORRECCIÓN DE ALINEACIÓN DE BOTONES EN TARJETAS --- */
+.card .p p {
+    min-height: 50px; 
+}
+/* ------------------------------------------------------------- */
+
+/* --- CORRECCIÓN FINAL DE BOTONES DE PÁGINA DE PRODUCTO --- */
+.product-hero .btn {
+    /* Esta regla se usó para asegurar que todos los botones en la página de producto se ajusten */
+    height: 42px;
+    line-height: 18px; 
+}
+.product-hero .btn-primary,
+.product-hero .btn-outline,
+.product-hero .btn-success {
+    /* Forzamos el mismo relleno para todas las clases de color en esta sección, usando !important para que sea la regla dominante */
+    padding: 10px 16px !important; 
+    height: 42px !important; 
+}
+/* ----------------------------------------------- */
