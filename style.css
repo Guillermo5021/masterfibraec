@@ -184,3 +184,5 @@ table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;ove
     height: 42px !important; 
 }
 /* ----------------------------------------------- */
+
+@media(max-width:900px){.hero{grid-template-columns:1fr}.product-hero{grid-template-columns:1fr}.nav-links{display:none}}
